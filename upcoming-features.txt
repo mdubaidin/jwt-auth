@@ -1,0 +1,12 @@
+=> Auto login on SignUp
+=> Username auto generator
+=> Add Payment Gateway
+=> Add extra fields from signUp route or a different add extra data route
+
+TypeChecker
+=> Add validators from email, username, and phone
+
+bugfix
+=> Add phone validator
+=> let user only go foward to step 2 and on, by using the jwt token
+=> Create error handler to provide beautified error messages
