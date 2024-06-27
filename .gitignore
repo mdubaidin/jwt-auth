@@ -1,19 +1,42 @@
-# Logs
-logs
+lib-cov
+*.seed
 *.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
 
-# Dependency directories
-node_modules/
-vendor/
+pids
+logs
+results
+tmp
 
-# Built artifacts
-dist/
-build/
-out/
+# Build
+public/css/main.css
 
-# Environment variables
+# Coverage reports
+coverage
+
+# API keys and secrets
 .env
+certs/*
 
-# Operating System files
+# Dependency directory
+node_modules
+bower_components
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
 .DS_Store
 Thumbs.db
+
+# Ignore built ts files
+dist/**/*
+
+# ignore yarn.lock
+yarn.lock
