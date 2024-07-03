@@ -15,17 +15,17 @@ const validateJWT: Handler = async (req, res, next) => {
 
         // console.log('refresh', refreshToken, 'access', accessToken);
 
-        if (!accessToken) return CustomError.throw('JWT access token must be provided', 401);
+        if (!accessToken) throw new CustomError('JWT access token must be provided', 401);
 
         if (refreshToken && isTokenExpire(accessToken)) {
             if (isTokenExpire(refreshToken))
-                return CustomError.throw('Your session has been expired. Login again', 401);
+                throw new CustomError('Your session has been expired. Login again', 401);
 
             const decode = Jwt.verify(refreshToken, process.env.JWT_SECRET as string) as JwtUser;
 
             const user = await User.findById(decode.id);
 
-            if (!user) return CustomError.throw('Refresh token is invalid', 401);
+            if (!user) throw new CustomError('Refresh token is invalid', 401);
 
             const { accessToken: accessT, refreshToken: refreshT } = await generateJWT(user);
 

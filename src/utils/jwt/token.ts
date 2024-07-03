@@ -21,7 +21,7 @@ const getAccessToken = async (refresh_token: string): Promise<Token> => {
     const user = await User.findById(decode.id);
 
     if (!user) {
-        CustomError.throw('Refresh token is invalid', 401);
+        new CustomError('Refresh token is invalid', 401);
         return {};
     }
 

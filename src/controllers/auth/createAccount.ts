@@ -10,11 +10,11 @@ const createAccount: Handler = async function (req, res, next) {
     try {
         const { name, email, password, otp } = req.body;
 
-        if (!otp) return CustomError.throw('OTP must be provided');
+        if (!otp) throw new CustomError('OTP must be provided');
 
         const isVerified = await OTP.countDocuments({ email, otp });
 
-        if (!isVerified) return CustomError.throw('Your entered code is Invalid', 200);
+        if (!isVerified) throw new CustomError('Your entered code is Invalid', 200);
 
         const newUser = new User({
             name,
@@ -42,7 +42,7 @@ const initiateEmail: Handler = async function (req, res, next) {
 
         const isEmailExists = await User.countDocuments({ email });
 
-        if (isEmailExists) return CustomError.throw('Email address already taken by someone');
+        if (isEmailExists) throw new CustomError('Email address already taken by someone');
 
         await OTP.deleteMany({ email, type: 'email-confirmation' });
 

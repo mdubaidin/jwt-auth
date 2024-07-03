@@ -12,13 +12,10 @@ const login: Handler = async function (req, res, next) {
         const query = { email };
         const user = await User.findOne(query);
 
-        if (!user) return CustomError.throw(`We can't find account with ${email}`, 404);
+        if (!user) throw new CustomError(`We can't find account with ${email}`, 404);
 
         if (await user.isUnauthorized(password))
-            return CustomError.throw(
-                'The password you entered is incorrect, Please try again',
-                404
-            );
+            throw new CustomError('The password you entered is incorrect, Please try again', 404);
 
         const { accessToken, refreshToken } = await generateJWT(user);
         const userObject = user.removeSensitiveInfo();

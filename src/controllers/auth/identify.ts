@@ -11,7 +11,7 @@ const identify: Handler = async function (req, res, next) {
         const { email } = req.body;
         const user = await User.findOne({ email });
 
-        if (!user) return CustomError.throw('No account associated with this email!', 404);
+        if (!user) throw new CustomError('No account associated with this email!', 404);
 
         const otp = generateOTP(6);
 

@@ -11,9 +11,9 @@ const authenticate: Handler = function authenticate(req, res, next) {
     try {
         const token = req.headers.accessToken;
 
-        if (typeof token !== 'string') return CustomError.throw('Provided Auth token is invalid');
+        if (typeof token !== 'string') throw new CustomError('Provided Auth token is invalid');
 
-        if (!token) return CustomError.throw('JWT must be provided', 401);
+        if (!token) throw new CustomError('JWT must be provided', 401);
 
         const user = Jwt.verify(token, PUBLIC_KEY) as JwtUser;
 

@@ -11,13 +11,13 @@ const refreshAccessToken: Handler = async function (req, res, next) {
     try {
         const token = req.body.refreshToken || req.cookies.refresh_token;
 
-        if (!token) return CustomError.throw('Refresh token must be provided', 401);
+        if (!token) throw new CustomError('Refresh token must be provided', 401);
 
         const decode = jwt.verify(token, process.env.JWT_SECRET as string) as JwtUser;
 
         const user = await User.findById(decode.id);
 
-        if (!user) return CustomError.throw('Refresh token is invalid', 404);
+        if (!user) throw new CustomError('Refresh token is invalid', 404);
 
         const { accessToken, refreshToken } = await generateJWT(user);
 
